@@ -13,9 +13,11 @@
  --------------------------- */
 #include <cstdlib>
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
+enum class ETATS {VIDE = 0, ENLEVE = 1, PLEIN = 2};
 
 // Constantes 
 const int NB_COLONNES = 7,
@@ -84,7 +86,18 @@ void afficher(int surfaceJeu[][7])
 {
    for (int i = 0; i < NB_COLONNES; i++) {
       for (int j = 0; j < NB_LIGNES; j++) {
-         cout << surfaceJeu[i][j] << " ";
+         if(surfaceJeu[i][j] == 0)
+         {
+            cout << setw(4) << "";
+         }
+         else if (surfaceJeu[i][j] == 1)
+         {
+            cout << setw(4) << " .. ";
+         }
+         else
+         {
+            cout << " " << i + 1 << j+ 1 << " ";
+         }
       }
       cout << endl;
    }
