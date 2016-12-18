@@ -33,6 +33,7 @@ void afficher(Etats surfaceJeu[][NB_LIGNES]);
 int char2int(char c);
 bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur);
 void sautRetraitPion(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur);
+bool finirJeu(Etats surfaceJeu[][NB_LIGNES]);
 
 
 int main() 
@@ -46,10 +47,19 @@ int main()
    {Etats::VIDE,Etats::VIDE,Etats::PLEIN,Etats::PLEIN,Etats::PLEIN,Etats::VIDE,Etats::VIDE},
    {Etats::VIDE,Etats::VIDE,Etats::PLEIN,Etats::PLEIN,Etats::PLEIN,Etats::VIDE,Etats::VIDE}};
 
-   
+   string saisie;
    afficher(surfaceJeu);
-   
-  saisieUtilisateur();
+   {
+     saisie = saisieUtilisateur();
+     if(deplacementValide(surfaceJeu, saisie))
+     {
+        sautRetraitPion(surfaceJeu,saisie);
+     }
+       
+     finirJeu(surfaceJeu);
+   }
+   while (saisie != "q");
+   saisieUtilisateur();
    
    cout << boolalpha << deplacementValide(surfaceJeu, "10u") << endl;
    cout << boolalpha << deplacementValide(surfaceJeu, "71d") << endl;
@@ -251,7 +261,8 @@ string saisieUtilisateur()
                cin.ignore(numeric_limits<int>::max(), '\n');
          }
       }
-      else {
+      else 
+      {
          cout << MESSAGE_ERREUR << end;
          cin.clear();
          cin.ignore(numeric_limits<int>::max(), '\n');
