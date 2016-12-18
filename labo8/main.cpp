@@ -149,9 +149,9 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
 {
    int compteur = 0;
    cout << "Deplacements possibles:";
-   for (int i = 0; i < NB_COLONNES; i++)
+   for (int i = 0; i <= NB_COLONNES; i++)
    {
-      for (int j = 0; j < NB_LIGNES; j++) 
+      for (int j = 0; j <= NB_LIGNES; j++) 
       {
          if (surfaceJeu[i][j] == Etats::PLEIN) 
          {
@@ -287,27 +287,29 @@ void sautRetraitPion(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
    char ligne = char2int(saisieUtilisateur.at(0)),
         colonne = char2int(saisieUtilisateur.at(1)),
         deplacement = saisieUtilisateur.at(2);
+   ligne --;
+   colonne --;
    switch (deplacement) 
    {
       case 'u': //Up
-         surfaceJeu[colonne][ligne] = Etats::ENLEVE;
-         surfaceJeu[colonne][ligne - 1] = Etats::ENLEVE;
-         surfaceJeu[colonne][ligne - 2] = Etats::PLEIN;
+         surfaceJeu[ligne][colonne] = Etats::ENLEVE;
+         surfaceJeu[ligne - 1][colonne] = Etats::ENLEVE;
+         surfaceJeu[ligne - 2][colonne] = Etats::PLEIN;
          break;
       case 'd': //Down
-         surfaceJeu[colonne][ligne] = Etats::ENLEVE;
-         surfaceJeu[colonne][ligne + 1] = Etats::ENLEVE;
-         surfaceJeu[colonne][ligne + 2] = Etats::PLEIN;
+         surfaceJeu[ligne][colonne] = Etats::ENLEVE;
+         surfaceJeu[ligne + 1][colonne] = Etats::ENLEVE;
+         surfaceJeu[ligne + 2][colonne] = Etats::PLEIN;
          break;
       case 'l': //Left
-         surfaceJeu[colonne][ligne] = Etats::ENLEVE;
-         surfaceJeu[colonne - 1][ligne] = Etats::ENLEVE;
-         surfaceJeu[colonne - 2][ligne] = Etats::PLEIN;
+         surfaceJeu[ligne][ligne] = Etats::ENLEVE;
+         surfaceJeu[ligne][colonne - 1] = Etats::ENLEVE;
+         surfaceJeu[ligne][colonne - 2] = Etats::PLEIN;
          break;
       case 'r': //Right
-         surfaceJeu[colonne][ligne] = Etats::ENLEVE;
-         surfaceJeu[colonne + 1][ligne] = Etats::ENLEVE;
-         surfaceJeu[colonne + 2][ligne] = Etats::PLEIN;
+         surfaceJeu[ligne][colonne] = Etats::ENLEVE;
+         surfaceJeu[ligne][colonne + 1] = Etats::ENLEVE;
+         surfaceJeu[ligne][colonne + 2] = Etats::PLEIN;
          break;
       default: 
          break;
