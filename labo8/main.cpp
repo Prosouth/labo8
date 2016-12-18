@@ -27,7 +27,6 @@ const string QUESTION = "Entrez votre deplacement souhaite: ",
              MESSAGE_ERREUR = "Entree non valide";
 const char LETTRE_QUITTER = 'q';
 
-void retraitPion(int indice_largeur, int indice_hauteur);
 void aide(Etats surfaceJeu[][NB_LIGNES]);
 string saisieUtilisateur(Etats surfaceJeu[][NB_LIGNES]);
 void afficher(Etats surfaceJeu[][NB_LIGNES]);
@@ -125,15 +124,6 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
    }
 }
 
-
-
-void retraitPion(int indice_largeur, int indice_hauteur)
-{
-   
-   
-}
-
-
 void aide(Etats surfaceJeu[][NB_LIGNES])
 {
    int possibilites[80];
@@ -141,17 +131,29 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
    cout << "Deplacements possibles:";
    for (int i = 0; i < NB_COLONNES; i++) {
       for (int j = 0; j < NB_LIGNES; j++) {
-         if(surfaceJeu[i][j] == Etats::ENLEVE)
+         if(surfaceJeu[i - 2][j] == Etats::ENLEVE && i >= 2 && surfaceJeu[i - 1][j] == Etats::PLEIN)
          {
-            possibilites[compteur] = (int)surfaceJeu[i][j];
+            cout << i + 1 << j + 1 << "u ";
             compteur++;
          }
+         if(surfaceJeu[i + 2][j] == Etats::ENLEVE && i <= 5 && surfaceJeu[i + 1][j] == Etats::PLEIN)
+         {
+            cout << i + 1 << j + 1 << "d ";
+            compteur++;
+         }
+         if(surfaceJeu[i][j + 2] == Etats::ENLEVE && j <= 5 && surfaceJeu[i][j - 1] == Etats::PLEIN)
+         {
+            cout << i + 1 << j + 1 << "r "; 
+            compteur++;
+         }
+         if(surfaceJeu[i][j - 2] == Etats::ENLEVE && j >= 2 && surfaceJeu[i][j - 1] == Etats::PLEIN)
+         {
+            cout << i + 1 << j + 1 << "l ";
+            compteur ++;
+         }   
       }
    }
-   for(int k = 0; k > 80; k++)
-   {
-      cout <<  possibilites[k] << " ";
-   }
+   cout << endl << "Nombre de coups possibles : "<< compteur << endl;
 }
 
 
