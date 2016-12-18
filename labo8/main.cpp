@@ -48,16 +48,18 @@ int main()
 
    string saisie;
    afficher(surfaceJeu);
+   do
    {
      saisie = saisieUtilisateur();
      if(deplacementValide(surfaceJeu, saisie))
      {
         sautRetraitPion(surfaceJeu,saisie);
      }
-     if (saisie == "h")
+     if(saisie == "h")
      {
         aide(surfaceJeu);
      }
+    
      finirJeu(surfaceJeu);
    }
    while (saisie != "q");
@@ -82,6 +84,10 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
         directionDeplacement = saisieUtilisateur.at(2);
    colonne --; // pour matcher le tableau d'enum directement
    ligne --;
+   if (saisieUtilisateur.length() != 3)
+   {
+      return false;
+   }
    bool deplacementValide = false;
 
    if(surfaceJeu[colonne][ligne] != Etats::PLEIN)
