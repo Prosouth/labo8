@@ -1,15 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   reglesDuJeu.cpp
- * Author: prosouth
- *
- * Created on 18 December 2016, 08:43
- */
 #include "reglesDuJeu.h"
 #include <cstdlib>
 #include <string>
@@ -239,16 +227,16 @@ string saisieUtilisateur()
 void sautRetraitPion(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
 {
 
-   char ligne = char2int(saisieUtilisateur.at(0)),
+   char ligne = char2int(saisieUtilisateur.at(0)), // Même principe, on parse
         colonne = char2int(saisieUtilisateur.at(1)),
         deplacement = saisieUtilisateur.at(2);
-   ligne --;
+   ligne --; // on réduit les indices de 1 pour matcher avec les indices du tableau
    colonne --;
    switch (deplacement) 
    {
       case 'u': //Up
-         surfaceJeu[ligne][colonne] = Etats::ENLEVE;
-         surfaceJeu[ligne - 1][colonne] = Etats::ENLEVE;
+         surfaceJeu[ligne][colonne] = Etats::ENLEVE; // On enlève le pion qu'on mange, puis
+         surfaceJeu[ligne - 1][colonne] = Etats::ENLEVE; // on déplace le pion utilisé 2 cases plus loin
          surfaceJeu[ligne - 2][colonne] = Etats::PLEIN;
          break;
       case 'd': //Down

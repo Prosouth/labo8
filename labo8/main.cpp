@@ -7,7 +7,7 @@
  
  But        : Mettre en oeuvre le jeu du solitaire dans sa version à 32 billes.       
  
- Remarque(s) :
+ Remarque(s) : Tout à l'air de fonctionner correctement.
  
  Compilateur : g++ 6.2.1 20160830
  --------------------------- */
