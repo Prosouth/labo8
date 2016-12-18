@@ -141,9 +141,9 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
 {
    int compteur = 0;
    cout << "Deplacements possibles: ";
-   for (int i = 0; i <= NB_LIGNES; i++)
+   for (int i = 0; i < NB_LIGNES; i++)
    {
-      for (int j = 0; j <= NB_COLONNES; j++) 
+      for (int j = 0; j < NB_COLONNES; j++) 
       {
          if (surfaceJeu[i][j] == Etats::PLEIN) 
          {
