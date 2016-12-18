@@ -24,16 +24,16 @@ enum class Etats {VIDE = 0, ENLEVE = 1, PLEIN = 2};
 const int NB_COLONNES = 7,
           NB_LIGNES = 7;
 
-bool mouvementValide(string deplacement);
 void retraitPion(int indice_largeur, int indice_hauteur);
-void aide(Etats surfaceJeu[7][7]);
+void aide(Etats surfaceJeu[][7]);
 void initialisationJeu(int tableau[][NB_LIGNES]);
-bool saisieUtilisateur(string& saisieUtilisateur, int surfaceJeu[][7]);
-void afficher(Etats surfaceJeu[7][7]);
+bool saisieUtilisateur(string& saisieUtilisateur, Etats surfaceJeu[][7]);
+void afficher(Etats surfaceJeu[][7]);
 int char2int(char c);
 void recherchePion(Etats surfaceJeu[][7], int position[][7]);
 bool positionCorrect(string& saisie, int x, unsigned int y);
 bool deplacementValide(Etats surfaceJeu[][7], string saisieUtilisateur);
+void sautRetraitPion(Etats surfaceJeu[NB_LIGNES][NB_COLONNES], string saisieUtilisateur);
 
 
 int main() 
@@ -49,104 +49,75 @@ int main()
 
    afficher(surfaceJeu);
    aide(surfaceJeu);
-   mouvementValide("12u");
-   cout << deplacementValide(surfaceJeu, "11U") << endl;
-   cout <<  deplacementValide(surfaceJeu, "71D") << endl;
-   cout <<  deplacementValide(surfaceJeu, "12L") << endl;
-   cout <<  deplacementValide(surfaceJeu, "72R") << endl;
+   cout << boolalpha << deplacementValide(surfaceJeu, "10u") << endl;
+   cout << boolalpha << deplacementValide(surfaceJeu, "71d") << endl;
+   cout << boolalpha << deplacementValide(surfaceJeu, "12l") << endl;
+   cout << boolalpha << deplacementValide(surfaceJeu, "72r") << endl;
+   cout << boolalpha << deplacementValide(surfaceJeu, "64u") << endl;
 
    
    return EXIT_SUCCESS;
 }
 
 
-bool mouvementValide(string deplacement)
+bool deplacementValide(Etats surfaceJeu[][NB_COLONNES], string saisieUtilisateur)
 {
-   char premier_char = deplacement.at(0);
-   char deuxieme_char = deplacement.at(1);
-   char troisieme_char = deplacement.at(2);
-   int colonne = char2int(premier_char);
-   int ligne = char2int(deuxieme_char);
-      
-   return ((troisieme_char == 'u' && ligne > 1) || (troisieme_char == 'd' && ligne < 7)
-       || (troisieme_char == 'l' && colonne > 1) || (troisieme_char == 'r' && colonne < 7));
-}
+   char ligne = saisieUtilisateur.at(0),
+        colonne = saisieUtilisateur.at(1),
+        directionDeplacement = saisieUtilisateur.at(2);
+   bool deplacementValide = false;
 
+   switch (directionDeplacement) 
+   { // check naïvement que le déplacement ne déborde pas de la surface de jeu
+      case 'u':
+         if (ligne >= 2 && colonne >= 0 && colonne <= 6 && ligne >= 0 && ligne <= 6)
+            deplacementValide = true;
+         break;
+      case 'd':
+         if (ligne <= 4 && colonne >= 0 && colonne <= 6 && ligne >= 0 && ligne <= 6)
+            deplacementValide = true;
+         break;
+      case 'l':
+         if (colonne >= 2 && colonne >= 0 && colonne <= 6 && ligne >= 0 && ligne <= 6)
+            deplacementValide = true;
+         break;
+      case 'r':
+         if (colonne <= 4 && colonne >= 0 && colonne <= 6 && ligne >= 0 && ligne <= 6)
+            deplacementValide = true;
+         break;
+      default: break;
+   }
 
-bool deplacementValide(Etats surfaceJeu[][NB_COLONNES], string saisieUtilisateur) {
-
-    char depl = saisieUtilisateur[2];
-    bool deplacementValide = true;
-
-    switch (depl) {
-        case 'U':
-            if (NB_LIGNES == 0 or NB_LIGNES == 1
-                    or (NB_LIGNES == 2 && NB_COLONNES == 0) or (NB_LIGNES == 2 && NB_COLONNES == 1)
-                    or (NB_LIGNES == 2 && NB_COLONNES == 5) or (NB_LIGNES == 2 && NB_COLONNES == 6)
-                    or (NB_LIGNES == 3 && NB_COLONNES == 0) or (NB_LIGNES == 3 && NB_COLONNES == 1)
-                    or (NB_LIGNES == 3 && NB_COLONNES == 5) or (NB_LIGNES == 3 && NB_COLONNES == 6))
-                deplacementValide = false;
-
+   if (deplacementValide) 
+   {
+      switch (directionDeplacement) 
+      {
+         case 'u'://Up
+            return (surfaceJeu[colonne - 1][ligne - 1] == Etats::PLEIN && surfaceJeu[colonne - 1][ligne - 2] == Etats::PLEIN
+                    && surfaceJeu[colonne - 1][ligne - 3] == Etats::ENLEVE);
             break;
-        case 'D':
-        {
-            if (NB_LIGNES == 5 or NB_LIGNES == 6
-                    or (NB_LIGNES == 4 && NB_COLONNES == 0) or (NB_LIGNES == 4 && NB_COLONNES == 1)
-                    or (NB_LIGNES == 4 && NB_COLONNES == 5) or (NB_LIGNES == 4 && NB_COLONNES == 6)
-                    or (NB_LIGNES == 3 && NB_COLONNES == 0) or (NB_LIGNES == 3 && NB_COLONNES == 1)
-                    or (NB_LIGNES == 3 && NB_COLONNES == 5) or (NB_LIGNES == 3 && NB_COLONNES == 6))
-                deplacementValide = false;
+         case 'd':
+            return (surfaceJeu[colonne - 1][ligne - 1] == Etats::ENLEVE && surfaceJeu[colonne - 1][ligne] == Etats::ENLEVE
+                    && surfaceJeu[colonne - 1][ligne + 1] == Etats::VIDE);
             break;
-            case 'L':
-            if (NB_COLONNES == 5 or NB_COLONNES == 6
-                    or (NB_LIGNES == 0 && NB_COLONNES == 3) or (NB_LIGNES == 1 && NB_COLONNES == 3)
-                    or (NB_LIGNES == 5 && NB_COLONNES == 3) or (NB_LIGNES == 6 && NB_COLONNES == 3)
-                    or (NB_LIGNES == 0 && NB_COLONNES == 4) or (NB_LIGNES == 1 && NB_COLONNES == 4)
-                    or (NB_LIGNES == 5 && NB_COLONNES == 4) or (NB_LIGNES == 6 && NB_COLONNES == 4))
-                deplacementValide = false;
+         case 'l':
+            return (surfaceJeu[colonne - 1][ligne - 1] == Etats::ENLEVE && surfaceJeu[colonne][ligne - 1] == Etats::ENLEVE
+                    && surfaceJeu[colonne][ligne + 2] == Etats::VIDE);
             break;
-
-            case 'R':
-            if (NB_COLONNES == 0 or NB_COLONNES == 1
-                    or (NB_LIGNES == 0 && NB_COLONNES == 3) or (NB_LIGNES == 1 && NB_COLONNES == 3)
-                    or (NB_LIGNES == 5 && NB_COLONNES == 3) or (NB_LIGNES == 6 && NB_COLONNES == 3)
-                    or (NB_LIGNES == 0 && NB_COLONNES == 2) or (NB_LIGNES == 1 && NB_COLONNES == 2)
-                    or (NB_LIGNES == 5 && NB_COLONNES == 2) or (NB_LIGNES == 6 && NB_COLONNES == 2))
-                deplacementValide = false;
+         case'r':
+            return (surfaceJeu[colonne - 1][ligne - 1] == Etats::ENLEVE && surfaceJeu[colonne][ligne - 1] == Etats::ENLEVE
+                    && surfaceJeu[colonne + 1][ligne - 1] == Etats::VIDE);
             break;
-            default: break;
-        }
-
-            if (deplacementValide) {
-
-                switch (depl) {
-                    case 'U'://Up
-                        if (surfaceJeu[NB_LIGNES][NB_COLONNES] == Etats::ENLEVE && surfaceJeu[NB_LIGNES - 1][NB_COLONNES] == Etats::ENLEVE 
-                                && surfaceJeu[NB_LIGNES - 2][NB_COLONNES] == Etats::VIDE) return true;
-                        else return false;
-                        break;
-                    case 'D':
-                        if (surfaceJeu[NB_LIGNES][NB_COLONNES] == Etats::ENLEVE && surfaceJeu[NB_LIGNES + 1][NB_COLONNES] == Etats::ENLEVE 
-                                && surfaceJeu[NB_LIGNES + 2][NB_COLONNES] == Etats::VIDE) return true;
-                        else return false;
-                        break;
-                    case 'L':
-                        if (surfaceJeu[NB_LIGNES][NB_COLONNES] == Etats::ENLEVE && surfaceJeu[NB_LIGNES][NB_COLONNES + 1] == Etats::ENLEVE 
-                                && surfaceJeu[NB_LIGNES][NB_COLONNES + 2] == Etats::VIDE) return true;
-                        else return false;
-                        break;
-                    case'R':
-                        if (surfaceJeu[NB_LIGNES][NB_COLONNES] == Etats::ENLEVE && surfaceJeu[NB_LIGNES][NB_COLONNES - 1] == Etats::ENLEVE 
-                                && surfaceJeu[NB_LIGNES][NB_COLONNES - 2] == Etats::VIDE) return true;
-                        else return false;
-                        break;
-                    default:
-                        return false;
-                }
-            }
+         default:
             return false;
-    }
+      }
+   }
+   else
+   {
+      return false;
+   }
 }
+
 
 
 void retraitPion(int indice_largeur, int indice_hauteur)
@@ -205,7 +176,7 @@ int char2int(char c) // utilisée pour parser les déplacements
 }
 
 
-bool saisieUtilisateur(string& saisieUtilisateur, int surfaceJeu[][NB_COLONNES]) 
+bool saisieUtilisateur(string& saisieUtilisateur, Etats surfaceJeu[][NB_COLONNES]) 
 {
 
     const string MESSAGE_ERREUR = "Entree non valide";
@@ -273,4 +244,34 @@ bool positionCorrect(string& saisie, int& x, unsigned int& y) {
     {
         return false;
     }
+}
+
+void sautRetraitPion(int surfaceJeu[NB_LIGNES][NB_COLONNES], string saisieUtilisateur) {
+ 
+    char depl = saisieUtilisateur[2];
+    switch (depl) {
+        case 'U': //Up
+            surfaceJeu[NB_LIGNES][NB_COLONNES] = 1;
+            surfaceJeu[NB_LIGNES - 1][NB_COLONNES] = 1;
+            surfaceJeu[NB_LIGNES - 2][NB_COLONNES] = 2;
+            break;
+        case 'D': //Down
+            surfaceJeu[NB_LIGNES][NB_COLONNES] = 1;
+            surfaceJeu[NB_LIGNES + 1][NB_COLONNES] = 1;
+            surfaceJeu[NB_LIGNES + 2][NB_COLONNES] = 2;
+            break;
+        case 'L': //Left
+            surfaceJeu[NB_LIGNES][NB_COLONNES] = 1;
+            surfaceJeu[NB_LIGNES][NB_COLONNES + 1] = 1;
+            surfaceJeu[NB_LIGNES][NB_COLONNES + 2] = 2;
+            break;
+        case 'R': //Right
+            surfaceJeu[NB_LIGNES][NB_COLONNES] = 1;
+            surfaceJeu[NB_LIGNES][NB_COLONNES - 1] = 1;
+            surfaceJeu[NB_LIGNES][NB_COLONNES - 2] = 2;
+            break;
+        default: cout << "Non valide";
+            break;
+    }
+ 
 }
