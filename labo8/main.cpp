@@ -126,6 +126,7 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
    }
 }
 
+
 void aide(Etats surfaceJeu[][NB_LIGNES])
 {
    int compteur = 0;
@@ -182,9 +183,6 @@ bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
    }
    return !(compteur);
 }
-
-
-
 
 
 void afficher(Etats surfaceJeu[][NB_LIGNES])
