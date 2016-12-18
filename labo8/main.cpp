@@ -46,6 +46,7 @@ int main()
    {Etats::VIDE,Etats::VIDE,Etats::PLEIN,Etats::PLEIN,Etats::PLEIN,Etats::VIDE,Etats::VIDE},
    {Etats::VIDE,Etats::VIDE,Etats::PLEIN,Etats::PLEIN,Etats::PLEIN,Etats::VIDE,Etats::VIDE}};
 
+   
    afficher(surfaceJeu);
    
   //saisieUtilisateur(surfaceJeu);
@@ -130,22 +131,29 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
 {
    int compteur = 0;
    cout << "Deplacements possibles:";
-   for (int i = 0; i < NB_COLONNES; i++) {
-      for (int j = 0; j < NB_LIGNES; j++) {
-         if (surfaceJeu[i][j] == Etats::PLEIN) {
-            if (i >= 2 && surfaceJeu[i - 2][j] == Etats::ENLEVE && surfaceJeu[i - 1][j] == Etats::PLEIN) {
+   for (int i = 0; i < NB_COLONNES; i++)
+   {
+      for (int j = 0; j < NB_LIGNES; j++) 
+      {
+         if (surfaceJeu[i][j] == Etats::PLEIN) 
+         {
+            if (i >= 2 && surfaceJeu[i - 2][j] == Etats::ENLEVE && surfaceJeu[i - 1][j] == Etats::PLEIN) 
+            {
                cout << i + 1 << j + 1 << "u ";
                compteur++;
             }
-            if (i <= 5 && surfaceJeu[i + 2][j] == Etats::ENLEVE && surfaceJeu[i + 1][j] == Etats::PLEIN) {
+            if (i <= 5 && surfaceJeu[i + 2][j] == Etats::ENLEVE && surfaceJeu[i + 1][j] == Etats::PLEIN) 
+            {
                cout << i + 1 << j + 1 << "d ";
                compteur++;
             }
-            if (j <= 5 && surfaceJeu[i][j + 2] == Etats::ENLEVE && surfaceJeu[i][j - 1] == Etats::PLEIN) {
+            if (j <= 5 && surfaceJeu[i][j + 2] == Etats::ENLEVE && surfaceJeu[i][j - 1] == Etats::PLEIN) 
+            {
                cout << i + 1 << j + 1 << "r ";
                compteur++;
             }
-            if (j >= 2 && surfaceJeu[i][j - 2] == Etats::ENLEVE && surfaceJeu[i][j - 1] == Etats::PLEIN) {
+            if (j >= 2 && surfaceJeu[i][j - 2] == Etats::ENLEVE && surfaceJeu[i][j - 1] == Etats::PLEIN) 
+            {
                cout << i + 1 << j + 1 << "l ";
                compteur++;
             }
@@ -157,24 +165,27 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
 bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
 {
 
-   for (int i = 0; i < NB_COLONNES; i++) {
-      for (int j = 0; j < NB_LIGNES; j++) {
-         if (surfaceJeu[i][j] == Etats::PLEIN) {
+   for (int i = 0; i < NB_COLONNES; i++) 
+   {
+      for (int j = 0; j < NB_LIGNES; j++) 
+      {
+         if (surfaceJeu[i][j] == Etats::PLEIN) 
+         {
             if (surfaceJeu[i - 2][j] == Etats::ENLEVE && i >= 2 && surfaceJeu[i - 1][j] == Etats::PLEIN) 
             {
                return false;
             }
-            if (surfaceJeu[i + 2][j] == Etats::ENLEVE && i <= 5 && surfaceJeu[i + 1][j] == Etats::PLEIN) {
-                              return false;
-
+            if (surfaceJeu[i + 2][j] == Etats::ENLEVE && i <= 5 && surfaceJeu[i + 1][j] == Etats::PLEIN) 
+            {
+               return false;
             }
-            if (surfaceJeu[i][j + 2] == Etats::ENLEVE && j <= 5 && surfaceJeu[i][j - 1] == Etats::PLEIN) {
-                              return false;
-
+            if (surfaceJeu[i][j + 2] == Etats::ENLEVE && j <= 5 && surfaceJeu[i][j - 1] == Etats::PLEIN) 
+            {
+               return false;
             }
-            if (surfaceJeu[i][j - 2] == Etats::ENLEVE && j >= 2 && surfaceJeu[i][j - 1] == Etats::PLEIN) {
-                              return false;
-
+            if (surfaceJeu[i][j - 2] == Etats::ENLEVE && j >= 2 && surfaceJeu[i][j - 1] == Etats::PLEIN) 
+            {
+               return false;
             }
          }
       }
@@ -185,8 +196,10 @@ bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
 
 void afficher(Etats surfaceJeu[][NB_LIGNES])
 {
-   for (int i = 0; i < NB_COLONNES; i++) {
-      for (int j = 0; j < NB_LIGNES; j++) {
+   for (int i = 0; i < NB_COLONNES; i++) 
+   {
+      for (int j = 0; j < NB_LIGNES; j++) 
+      {
          if(surfaceJeu[i][j] == Etats::VIDE)
          {
             cout << setw(4) << "";
@@ -210,27 +223,43 @@ int char2int(char c) // utilisée pour parser les déplacements
    return c - '0';
 }
 
-
-string saisieUtilisateur(Etats surfaceJeu[][NB_LIGNES]) 
+string saisieUtilisateur(Etats surfaceJeu[][NB_LIGNES])
 {
    string valeur;
+   char direction;
    bool entree_invalide = false;
-   do
-   {
-     cout << QUESTION;
-     cin >> valeur;
-     entree_invalide = !(!valeur.empty() || isdigit(valeur[0]) && isdigit(valeur[1]) && isalpha(valeur[2]));
-     if (entree_invalide) // si entrée est invalide, on affiche erreur, vide buffer et affiche question
+   do {
+      cout << QUESTION;
+      cin >> valeur;
+      if (valeur == "q") {
+         return valeur;
+      }
+      if (valeur == "h") {
+         return valeur;
+      }
+      if (valeur.length() == 3 && isdigit(valeur[0]) && isdigit(valeur[1])) {
+         direction = isdigit(valeur[1]);
+         switch (direction) {
+            case 'u':
+            case'd':
+            case 'l':
+            case 'r':
+               return valeur;
+            default:
+               cout << MESSAGE_ERREUR;
+               cin.clear();
+               cin.ignore(numeric_limits<int>::max(), '\n');
+         }
+      } 
+      else 
       {
-         cout << MESSAGE_ERREUR << endl;
+         cout << MESSAGE_ERREUR;
          cin.clear();
          cin.ignore(numeric_limits<int>::max(), '\n');
       }
-   }
-   while(entree_invalide); // tant que l'entrée est invalide, on garde l'utilisateur captif   
-   
-   //deplacementValide(surfaceJeu, saisieUtilisateur);
- 
+   }while (entree_invalide); // tant que l'entrée est invalide, on garde l'utilisateur captif   
+
+
 return valeur;
 }
 
@@ -264,7 +293,6 @@ void sautRetraitPion(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
          surfaceJeu[colonne + 2][ligne] = Etats::PLEIN;
          break;
       default: 
-         cout << "";
          break;
    }
 }
