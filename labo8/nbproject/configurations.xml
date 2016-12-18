@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>affichage.h</itemPath>
+      <itemPath>constantes.h</itemPath>
       <itemPath>reglesDuJeu.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -48,6 +49,8 @@
       </item>
       <item path="affichage.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="constantes.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="reglesDuJeu.cpp" ex="false" tool="1" flavor2="0">
@@ -79,6 +82,8 @@
       <item path="affichage.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="affichage.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="constantes.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
