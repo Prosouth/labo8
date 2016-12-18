@@ -59,7 +59,7 @@ int main()
      {
         aide(surfaceJeu);
      }
-    
+     afficher(surfaceJeu);
      finirJeu(surfaceJeu);
    }
    while (saisie != "q");
@@ -256,7 +256,7 @@ string saisieUtilisateur()
          return valeur;
       }
       if (valeur.length() == 3 && isdigit(valeur[0]) && isdigit(valeur[1])) {
-         direction = isdigit(valeur[2]);
+         direction = valeur[2];
          switch (direction) {
             case 'u':
             case'd':
