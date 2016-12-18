@@ -12,7 +12,8 @@
  */
 #include "reglesDuJeu.h"
 #include <cstdlib>
-#include<iostream>
+#include <string>
+#include <iostream>
 #include <limits>
 using namespace std;
 
@@ -126,8 +127,10 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
 
 bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
 {
+
    // Même principe que pour la fonction aide sauf que là on quitte la boucle
    // pour pas itérer pour rien.
+   int compteur = 0;
    for (int i = 0; i < NB_LIGNES; i++) 
    {
       for (int j = 0; j < NB_COLONNES; j++) 
@@ -150,10 +153,32 @@ bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
             {
                return false;
             }
+            
+            compteur++;
          }
       }
    }
+
    return true; // S'il ne trouve pas de possiblités, on a fini le jeu
+   
+   if(compteur == 1) {
+       
+       if(surfaceJeu[3][3] == Etats::PLEIN) {
+          cout << "Parfait, il ne reste qu'une bille au centre" << endl;
+       }
+       else {
+          cout << "Bravo, vous avez gagne avec une seule bille restante. Au centre ce serait parfait" << endl;
+       }
+       
+   }
+   else if(compteur >= 2 && compteur <= 5) {
+       cout << "Pas mal, il ne reste que N billes" << endl;
+   }
+   else {
+       cout << "Vous pouvez faire mieux, il reste N billes " << endl;
+   }
+   
+   return true;
 }
 
 
