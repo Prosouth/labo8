@@ -41,6 +41,7 @@
       <compileType>
         <ccTool>
           <standard>8</standard>
+          <commandLine>-Werror</commandLine>
         </ccTool>
       </compileType>
       <item path="affichage.cpp" ex="false" tool="1" flavor2="0">
