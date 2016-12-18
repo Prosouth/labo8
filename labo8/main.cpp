@@ -33,7 +33,6 @@ void afficher(Etats surfaceJeu[][NB_LIGNES]);
 int char2int(char c);
 bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur);
 void sautRetraitPion(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur);
-string saisieDuGhetto(Etats surfaceJeu[][NB_LIGNES]);
 
 
 int main() 
@@ -153,35 +152,34 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
          }
       }
    }
-   cout << endl << "Nombre de coups possibles : " << compteur << endl;
 }
-
 
 bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
 {
-   int compteur = 0;
-   cout << "Deplacements possibles:";
+
    for (int i = 0; i < NB_COLONNES; i++) {
       for (int j = 0; j < NB_LIGNES; j++) {
-         if(surfaceJeu[i - 2][j] == Etats::ENLEVE && i >= 2 && surfaceJeu[i - 1][j] == Etats::PLEIN)
-         {
-            compteur++;
+         if (surfaceJeu[i][j] == Etats::PLEIN) {
+            if (surfaceJeu[i - 2][j] == Etats::ENLEVE && i >= 2 && surfaceJeu[i - 1][j] == Etats::PLEIN) 
+            {
+               return false;
+            }
+            if (surfaceJeu[i + 2][j] == Etats::ENLEVE && i <= 5 && surfaceJeu[i + 1][j] == Etats::PLEIN) {
+                              return false;
+
+            }
+            if (surfaceJeu[i][j + 2] == Etats::ENLEVE && j <= 5 && surfaceJeu[i][j - 1] == Etats::PLEIN) {
+                              return false;
+
+            }
+            if (surfaceJeu[i][j - 2] == Etats::ENLEVE && j >= 2 && surfaceJeu[i][j - 1] == Etats::PLEIN) {
+                              return false;
+
+            }
          }
-         if(surfaceJeu[i + 2][j] == Etats::ENLEVE && i <= 5 && surfaceJeu[i + 1][j] == Etats::PLEIN)
-         {
-            compteur++;
-         }
-         if(surfaceJeu[i][j + 2] == Etats::ENLEVE && j <= 5 && surfaceJeu[i][j - 1] == Etats::PLEIN)
-         {
-            compteur++;
-         }
-         if(surfaceJeu[i][j - 2] == Etats::ENLEVE && j >= 2 && surfaceJeu[i][j - 1] == Etats::PLEIN)
-         {
-            compteur ++;
-         }   
       }
    }
-   return !(compteur);
+   return true;
 }
 
 
@@ -236,15 +234,6 @@ string saisieUtilisateur(Etats surfaceJeu[][NB_LIGNES])
 return valeur;
 }
 
-
-string saisieDuGhetto(Etats surfaceJeu[][NB_LIGNES])
-{
-   string saisie;
-   cout << QUESTION << endl;
-   cin >> saisie;
-   
-   return saisie;
-}
 
 void sautRetraitPion(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
 {
