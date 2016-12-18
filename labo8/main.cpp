@@ -48,7 +48,6 @@ int main()
    {Etats::VIDE,Etats::VIDE,Etats::PLEIN,Etats::PLEIN,Etats::PLEIN,Etats::VIDE,Etats::VIDE}};
 
    afficher(surfaceJeu);
-   aide(surfaceJeu);
    cout << boolalpha << deplacementValide(surfaceJeu, "10u") << endl;
    cout << boolalpha << deplacementValide(surfaceJeu, "71d") << endl;
    cout << boolalpha << deplacementValide(surfaceJeu, "12l") << endl;
@@ -62,13 +61,15 @@ int main()
 
 bool deplacementValide(Etats surfaceJeu[][NB_COLONNES], string saisieUtilisateur)
 {
-   char ligne = saisieUtilisateur.at(0),
-        colonne = saisieUtilisateur.at(1),
+   char ligne = char2int(saisieUtilisateur.at(0)),
+        colonne = char2int(saisieUtilisateur.at(1)),
         directionDeplacement = saisieUtilisateur.at(2);
+   colonne --; // pour matcher le tableau d'enum directement
+   ligne --;
    bool deplacementValide = false;
 
    switch (directionDeplacement) 
-   { // check naïvement que le déplacement ne déborde pas de la surface de jeu
+   { // check naïvement que le déplacement ne déborde pas de la surface de tableau
       case 'u':
          if (ligne >= 2 && colonne >= 0 && colonne <= 6 && ligne >= 0 && ligne <= 6)
             deplacementValide = true;
@@ -88,25 +89,25 @@ bool deplacementValide(Etats surfaceJeu[][NB_COLONNES], string saisieUtilisateur
       default: break;
    }
 
-   if (deplacementValide) 
+   if (deplacementValide && surfaceJeu[colonne][ligne] == Etats::PLEIN) 
    {
       switch (directionDeplacement) 
       {
-         case 'u'://Up
-            return (surfaceJeu[colonne - 1][ligne - 1] == Etats::PLEIN && surfaceJeu[colonne - 1][ligne - 2] == Etats::PLEIN
-                    && surfaceJeu[colonne - 1][ligne - 3] == Etats::ENLEVE);
+         case 'u':// up
+            return (surfaceJeu[colonne][ligne - 1] == Etats::PLEIN
+                    && surfaceJeu[colonne][ligne - 2] == Etats::ENLEVE);
             break;
-         case 'd':
-            return (surfaceJeu[colonne - 1][ligne - 1] == Etats::ENLEVE && surfaceJeu[colonne - 1][ligne] == Etats::ENLEVE
-                    && surfaceJeu[colonne - 1][ligne + 1] == Etats::VIDE);
+         case 'd': // down
+            return (surfaceJeu[colonne][ligne + 1] == Etats::PLEIN
+                    && surfaceJeu[colonne][ligne + 2] == Etats::ENLEVE);
             break;
-         case 'l':
-            return (surfaceJeu[colonne - 1][ligne - 1] == Etats::ENLEVE && surfaceJeu[colonne][ligne - 1] == Etats::ENLEVE
-                    && surfaceJeu[colonne][ligne + 2] == Etats::VIDE);
+         case 'l': // left
+            return (surfaceJeu[colonne - 1][ligne] == Etats::PLEIN
+                    && surfaceJeu[colonne - 2][ligne] == Etats::ENLEVE);
             break;
-         case'r':
-            return (surfaceJeu[colonne - 1][ligne - 1] == Etats::ENLEVE && surfaceJeu[colonne][ligne - 1] == Etats::ENLEVE
-                    && surfaceJeu[colonne + 1][ligne - 1] == Etats::VIDE);
+         case'r': // right
+            return (surfaceJeu[colonne + 1][ligne] == Etats::PLEIN
+                    && surfaceJeu[colonne + 2][ligne] == Etats::ENLEVE);
             break;
          default:
             return false;
