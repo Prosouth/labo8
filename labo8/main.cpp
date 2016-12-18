@@ -76,19 +76,19 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
    switch (directionDeplacement) 
    { // check naïvement que le déplacement ne déborde pas de la surface de tableau
       case 'u':
-         if (ligne >= 2 && colonne >= 0 && colonne <= 6 && ligne >= 0 && ligne <= 6)
+         if (ligne >= 2 && colonne >= 0 && colonne <= 6 && ligne <= 6)
             deplacementValide = true;
          break;
       case 'd':
-         if (ligne <= 4 && colonne >= 0 && colonne <= 6 && ligne >= 0 && ligne <= 6)
+         if (ligne <= 4 && colonne >= 0 && colonne <= 6 && ligne >= 0)
             deplacementValide = true;
          break;
       case 'l':
-         if (colonne >= 2 && colonne >= 0 && colonne <= 6 && ligne >= 0 && ligne <= 6)
+         if (colonne >= 2 && colonne <= 6 && ligne >= 0 && ligne <= 6)
             deplacementValide = true;
          break;
       case 'r':
-         if (colonne <= 4 && colonne >= 0 && colonne <= 6 && ligne >= 0 && ligne <= 6)
+         if (colonne <= 4 && colonne >= 0 && ligne >= 0 && ligne <= 6)
             deplacementValide = true;
          break;
       default: break;
@@ -155,6 +155,7 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
    }
    cout << endl << "Nombre de coups possibles : "<< compteur << endl;
 }
+
 
 bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
 {
