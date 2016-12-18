@@ -63,63 +63,65 @@ int main()
    return EXIT_SUCCESS;
 }
 
-
 bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
 {
    char ligne = char2int(saisieUtilisateur.at(0)),
-        colonne = char2int(saisieUtilisateur.at(1)),
-        directionDeplacement = saisieUtilisateur.at(2);
-   colonne --; // pour matcher le tableau d'enum directement
-   ligne --;
+           colonne = char2int(saisieUtilisateur.at(1)),
+           directionDeplacement = saisieUtilisateur.at(2);
+   colonne--; // pour matcher le tableau d'enum directement
+   ligne--;
    bool deplacementValide = false;
 
-   switch (directionDeplacement) 
-   { // check naïvement que le déplacement ne déborde pas de la surface de tableau
-      case 'u':
-         if (ligne >= 2 && ligne <= 6 && colonne >= 0 && colonne <= 6)
-            deplacementValide = true;
-         break;
-      case 'd':
-         if (ligne <= 4 && ligne >= 0 && colonne >= 0 && colonne <= 6)
-            deplacementValide = true;
-         break;
-      case 'l':
-         if (colonne >= 2 && colonne <= 6 && ligne >= 0 && ligne <= 6)
-            deplacementValide = true;
-         break;
-      case 'r':
-         if (colonne <= 4 && colonne >= 0 && ligne >= 0 && ligne <= 6)
-            deplacementValide = true;
-         break;
-      default: 
-         break;
-   }
-
-   if (deplacementValide && surfaceJeu[colonne][ligne] == Etats::PLEIN) 
+   if (surfaceJeu[colonne][ligne] == Etats::PLEIN) 
    {
       switch (directionDeplacement) 
-      {
-         case 'u':// up
-            return (surfaceJeu[colonne][ligne - 1] == Etats::PLEIN
-                    && surfaceJeu[colonne][ligne - 2] == Etats::ENLEVE);
+      { // check naïvement que le déplacement ne déborde pas de la surface de tableau
+         case 'u':
+            if (ligne >= 2 && ligne <= 6 && colonne >= 0 && colonne <= 6)
+               deplacementValide = true;
             break;
-         case 'd': // down
-            return (surfaceJeu[colonne][ligne + 1] == Etats::PLEIN
-                    && surfaceJeu[colonne][ligne + 2] == Etats::ENLEVE);
+         case 'd':
+            if (ligne <= 4 && ligne >= 0 && colonne >= 0 && colonne <= 6)
+               deplacementValide = true;
             break;
-         case 'l': // left
-            return (surfaceJeu[colonne - 1][ligne] == Etats::PLEIN
-                    && surfaceJeu[colonne - 2][ligne] == Etats::ENLEVE);
+         case 'l':
+            if (colonne >= 2 && colonne <= 6 && ligne >= 0 && ligne <= 6)
+               deplacementValide = true;
             break;
-         case'r': // right
-            return (surfaceJeu[colonne + 1][ligne] == Etats::PLEIN
-                    && surfaceJeu[colonne + 2][ligne] == Etats::ENLEVE);
+         case 'r':
+            if (colonne <= 4 && colonne >= 0 && ligne >= 0 && ligne <= 6)
+               deplacementValide = true;
             break;
          default:
-            return false;
+            break;
       }
-   }
-   else
+
+      if (deplacementValide) 
+      {
+         switch (directionDeplacement) 
+         {
+            case 'u':// up
+               return (surfaceJeu[colonne][ligne - 1] == Etats::PLEIN
+                       && surfaceJeu[colonne][ligne - 2] == Etats::ENLEVE);
+               break;
+            case 'd': // down
+               return (surfaceJeu[colonne][ligne + 1] == Etats::PLEIN
+                       && surfaceJeu[colonne][ligne + 2] == Etats::ENLEVE);
+               break;
+            case 'l': // left
+               return (surfaceJeu[colonne - 1][ligne] == Etats::PLEIN
+                       && surfaceJeu[colonne - 2][ligne] == Etats::ENLEVE);
+               break;
+            case'r': // right
+               return (surfaceJeu[colonne + 1][ligne] == Etats::PLEIN
+                       && surfaceJeu[colonne + 2][ligne] == Etats::ENLEVE);
+               break;
+            default:
+               return false;
+         }
+      }
+   } 
+   else 
    {
       return false;
    }
