@@ -15,6 +15,7 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <string>
 using namespace std;
 
 enum class Etats {VIDE = 0, ENLEVE = 1, PLEIN = 2};
@@ -27,13 +28,12 @@ const string QUESTION = "Entrez votre deplacement souhaite: ",
 const char LETTRE_QUITTER = 'q';
 
 void aide(Etats surfaceJeu[][NB_LIGNES]);
-string saisieUtilisateur();
+void sautRetraitPion(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur);
 void afficher(Etats surfaceJeu[][NB_LIGNES]);
 int char2int(char c);
 bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur);
-void sautRetraitPion(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur);
 bool finirJeu(Etats surfaceJeu[][NB_LIGNES]);
-
+string saisieUtilisateur();
 
 int main() 
 {
@@ -58,7 +58,6 @@ int main()
      {
         aide(surfaceJeu);
      }
-       
      finirJeu(surfaceJeu);
    }
    while (saisie != "q");
