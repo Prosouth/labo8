@@ -154,11 +154,11 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
             {
                cout << i + 1 << j + 1 << "d ";
             }
-            if (j <= 5 && surfaceJeu[i][j + 2] == Etats::ENLEVE && surfaceJeu[i][j - 1] == Etats::PLEIN) 
+            if (j <= 5 && surfaceJeu[i][j + 2] == Etats::ENLEVE && surfaceJeu[i][j + 1] == Etats::PLEIN) 
             {
                cout << i + 1 << j + 1 << "r ";
             }
-            if (j >= 2 && surfaceJeu[i][j - 2] == Etats::ENLEVE && surfaceJeu[i][j + 1] == Etats::PLEIN) 
+            if (j >= 2 && surfaceJeu[i][j - 2] == Etats::ENLEVE && surfaceJeu[i][j - 1] == Etats::PLEIN) 
             {
                cout << i + 1 << j + 1 << "l ";
             }
@@ -185,7 +185,7 @@ bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
             {
                return false;
             }
-            if (j <= 5 && surfaceJeu[i][j + 2] == Etats::ENLEVE && surfaceJeu[i][j - 1] == Etats::PLEIN) 
+            if (j <= 5 && surfaceJeu[i][j + 2] == Etats::ENLEVE && surfaceJeu[i][j + 1] == Etats::PLEIN) 
             {
                return false;
             }
