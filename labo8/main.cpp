@@ -42,6 +42,10 @@ int main()
      {
         sautRetraitPion(surfaceJeu,saisie);
      }
+     else {
+         cout << "Deplacement non valide" << endl;
+     }
+     
      if(saisie == "h")
      {
         aide(surfaceJeu);
