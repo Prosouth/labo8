@@ -136,8 +136,8 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
                  && surfaceJeu[ligne][colonne - 2] == Etats::ENLEVE);
          break;
       case'r': // right
-         return (surfaceJeu[ligne + 1][colonne] == Etats::PLEIN
-                 && surfaceJeu[ligne + 2][colonne] == Etats::ENLEVE);
+         return (surfaceJeu[ligne][colonne + 1] == Etats::PLEIN
+                 && surfaceJeu[ligne][colonne + 2] == Etats::ENLEVE);
          break;
       default:
          break;
@@ -170,7 +170,7 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
                cout << i + 1 << j + 1 << "r ";
                compteur++;
             }
-            if (j >= 2 && surfaceJeu[i][j - 2] == Etats::ENLEVE && surfaceJeu[i][j - 1] == Etats::PLEIN) 
+            if (j >= 2 && surfaceJeu[i][j - 2] == Etats::ENLEVE && surfaceJeu[i][j + 1] == Etats::PLEIN) 
             {
                cout << i + 1 << j + 1 << "l ";
                compteur++;
