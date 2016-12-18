@@ -62,16 +62,8 @@ int main()
      afficher(surfaceJeu);
      finirJeu(surfaceJeu);
    }
-   while (saisie != "q");
-   saisieUtilisateur();
+   while (saisie != "q" || !finirJeu(surfaceJeu));
    
-   cout << boolalpha << deplacementValide(surfaceJeu, "10u") << endl;
-   cout << boolalpha << deplacementValide(surfaceJeu, "71d") << endl;
-   cout << boolalpha << deplacementValide(surfaceJeu, "12l") << endl;
-   cout << boolalpha << deplacementValide(surfaceJeu, "72r") << endl;
-   cout << boolalpha << deplacementValide(surfaceJeu, "64u") << endl;
-   
-   aide(surfaceJeu);
    
    return EXIT_SUCCESS;
 }
@@ -79,15 +71,15 @@ int main()
 
 bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
 {
+   if (saisieUtilisateur.length() != 3)
+   {
+      return false;
+   }
    char ligne = char2int(saisieUtilisateur.at(0)),
         colonne = char2int(saisieUtilisateur.at(1)),
         directionDeplacement = saisieUtilisateur.at(2);
    colonne --; // pour matcher le tableau d'enum directement
    ligne --;
-   if (saisieUtilisateur.length() != 3)
-   {
-      return false;
-   }
    bool deplacementValide = false;
 
    if(surfaceJeu[ligne][colonne] != Etats::PLEIN)
@@ -148,7 +140,7 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
 void aide(Etats surfaceJeu[][NB_LIGNES])
 {
    int compteur = 0;
-   cout << "Deplacements possibles:";
+   cout << "Deplacements possibles: ";
    for (int i = 0; i <= NB_LIGNES; i++)
    {
       for (int j = 0; j <= NB_COLONNES; j++) 
@@ -177,7 +169,8 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
             }
          }
       }
-   }
+   } 
+   cout << endl;
 }
 
 bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
