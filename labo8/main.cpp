@@ -139,7 +139,6 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
 
 void aide(Etats surfaceJeu[][NB_LIGNES])
 {
-   int compteur = 0;
    cout << "Deplacements possibles: ";
    for (int i = 0; i < NB_LIGNES; i++)
    {
@@ -150,22 +149,18 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
             if (i >= 2 && surfaceJeu[i - 2][j] == Etats::ENLEVE && surfaceJeu[i - 1][j] == Etats::PLEIN) 
             {
                cout << i + 1 << j + 1 << "u ";
-               compteur++;
             }
             if (i <= 5 && surfaceJeu[i + 2][j] == Etats::ENLEVE && surfaceJeu[i + 1][j] == Etats::PLEIN) 
             {
                cout << i + 1 << j + 1 << "d ";
-               compteur++;
             }
             if (j <= 5 && surfaceJeu[i][j + 2] == Etats::ENLEVE && surfaceJeu[i][j - 1] == Etats::PLEIN) 
             {
                cout << i + 1 << j + 1 << "r ";
-               compteur++;
             }
             if (j >= 2 && surfaceJeu[i][j - 2] == Etats::ENLEVE && surfaceJeu[i][j + 1] == Etats::PLEIN) 
             {
                cout << i + 1 << j + 1 << "l ";
-               compteur++;
             }
          }
       }
