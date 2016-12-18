@@ -14,6 +14,8 @@
 #ifndef REGLEDUJEU_H
 #define REGLEDUJEU_H
 #include "constantes.h"
+#include <string>
+using namespace std;
 /**
  Fonction qui affiche les mouvements possibles 
  
@@ -66,4 +68,3 @@ string saisieUtilisateur();
 
 
 #endif /* REGLEDUJEU_H */
-

@@ -24,6 +24,7 @@ using namespace std;
 
 int main() 
 {
+   // Enum de l'état du jeu de chaque case
    Etats surfaceJeu[NB_LIGNES][NB_COLONNES] = 
    {{Etats::VIDE,Etats::VIDE,Etats::PLEIN,Etats::PLEIN,Etats::PLEIN,Etats::VIDE,Etats::VIDE},
    {Etats::VIDE,Etats::VIDE,Etats::PLEIN,Etats::PLEIN,Etats::PLEIN,Etats::VIDE,Etats::VIDE},

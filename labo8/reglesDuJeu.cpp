@@ -12,7 +12,6 @@
  */
 #include "reglesDuJeu.h"
 #include <cstdlib>
-#include <string>
 #include<iostream>
 #include <limits>
 using namespace std;
@@ -24,13 +23,14 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
    {
       return false;
    }
-   char ligne = char2int(saisieUtilisateur.at(0)),
-        colonne = char2int(saisieUtilisateur.at(1)),
-        directionDeplacement = saisieUtilisateur.at(2);
+   char ligne = char2int(saisieUtilisateur.at(0)), // parse la ligne
+        colonne = char2int(saisieUtilisateur.at(1)), // parse la colonne
+        directionDeplacement = saisieUtilisateur.at(2); // parse le direction du déplacement
    colonne --; // pour matcher le tableau d'enum directement
    ligne --;
    bool deplacementValide = false;
-
+   
+   // Si la surface du jeu contient une boule
    if(surfaceJeu[ligne][colonne] != Etats::PLEIN)
    {
       return false;
@@ -58,10 +58,13 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
          break;
    }
 
+   // si le déplacement n'est pas valide, pas besoin de tester plus loin.
    if (!deplacementValide) 
    {
       return false;
    }
+   // on teste maintenant qu'on puisse se déplacer comme il faut
+   // une boule pleine puis une boule enlevée
    switch (directionDeplacement)
    {
       case 'u':// up
@@ -88,12 +91,16 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
 void aide(Etats surfaceJeu[][NB_LIGNES])
 {
    cout << "Deplacements possibles: ";
+   // On itère à travers la surface de jeu pour chercher les mouvements possibles
+   // en cherchant dans les 4 directions et ensuite on affiche les possiblités
    for (int i = 0; i < NB_LIGNES; i++)
    {
       for (int j = 0; j < NB_COLONNES; j++) 
       {
+         // on teste d'abord que la case soit bien pleine, sinon ça sert à rien...
          if (surfaceJeu[i][j] == Etats::PLEIN) 
          {
+            // ensuite on regarde les cases avoisinantes
             if (i >= 2 && surfaceJeu[i - 2][j] == Etats::ENLEVE && surfaceJeu[i - 1][j] == Etats::PLEIN) 
             {
                cout << i + 1 << j + 1 << "u ";
@@ -119,7 +126,8 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
 
 bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
 {
-
+   // Même principe que pour la fonction aide sauf que là on quitte la boucle
+   // pour pas itérer pour rien.
    for (int i = 0; i < NB_LIGNES; i++) 
    {
       for (int j = 0; j < NB_COLONNES; j++) 
@@ -145,13 +153,13 @@ bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
          }
       }
    }
-   return true;
+   return true; // S'il ne trouve pas de possiblités, on a fini le jeu
 }
 
 
 int char2int(char c) // utilisée pour parser les déplacements
 {
-   return c - '0';
+   return c - '0'; // décalage nécessaire pour trouver le char en valeur entière
 }
 
 
@@ -165,21 +173,26 @@ string saisieUtilisateur()
    do {
       cout << QUESTION;
       cin >> valeur;
-      if (valeur == "q") {
+      if (valeur == "q") 
+      {
          return valeur;
       }
-      if (valeur == "h") {
+      if (valeur == "h") 
+      {
          return valeur;
       }
       if (valeur.length() == 3 && isdigit(valeur[0]) && isdigit(valeur[1])) {
          direction = valeur[2];
-         switch (direction) {
+         switch (direction) 
+         {
             case 'u':
             case'd':
             case 'l':
             case 'r':
-               return valeur;
+               return valeur; 
+               break;
             default:
+               // autrement, on affiche le message d'erreur et on vide le buffer
                cout << MESSAGE_ERREUR << endl;
                cin.clear();
                cin.ignore(numeric_limits<int>::max(), '\n');
@@ -187,6 +200,7 @@ string saisieUtilisateur()
       }
       else 
       {
+         // on vide le buffer pour pas qu'il reste des caractères
          cout << MESSAGE_ERREUR << endl;
          cin.clear();
          cin.ignore(numeric_limits<int>::max(), '\n');
