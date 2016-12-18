@@ -31,9 +31,9 @@ void initialisationJeu(int tableau[][NB_LIGNES]);
 bool saisieUtilisateur(string& saisieUtilisateur, int surfaceJeu[][7]);
 void afficher(Etats surfaceJeu[7][7]);
 int char2int(char c);
-void recherchePion(int surfaceJeu[][7], int position[][7]);
+void recherchePion(Etats surfaceJeu[][7], int position[][7]);
 bool positionCorrect(string& saisie, int x, unsigned int y);
-void deplacementValide(int surfaceJeu[][7], string saisieUtilisateur);
+bool deplacementValide(Etats surfaceJeu[][7], string saisieUtilisateur);
 
 
 int main() 
@@ -50,11 +50,10 @@ int main()
    afficher(surfaceJeu);
    aide(surfaceJeu);
    mouvementValide("12u");
-   cout << mouvementValide("11u") << endl;
-   cout <<  mouvementValide("71d") << endl;
-   cout <<  mouvementValide("12l") << endl;
-   cout <<  mouvementValide("72r") << endl;
-
+   cout << deplacementValide(surfaceJeu, "11U") << endl;
+   cout <<  deplacementValide(surfaceJeu, "71D") << endl;
+   cout <<  deplacementValide(surfaceJeu, "12L") << endl;
+   cout <<  deplacementValide(surfaceJeu, "72R") << endl;
 
    
    return EXIT_SUCCESS;
@@ -73,8 +72,6 @@ bool mouvementValide(string deplacement)
        || (troisieme_char == 'l' && colonne > 1) || (troisieme_char == 'r' && colonne < 7));
 }
 
-int lign = 0, colonne = 0;
-bool DeplacementValide = true;
 
 bool deplacementValide(Etats surfaceJeu[][NB_COLONNES], string saisieUtilisateur) {
 
@@ -179,6 +176,7 @@ void initialisationJeu(int tableau[][NB_LIGNES])
    
 }
 
+
 void afficher(Etats surfaceJeu[][7])
 {
    for (int i = 0; i < NB_COLONNES; i++) {
@@ -233,17 +231,16 @@ bool saisieUtilisateur(string& saisieUtilisateur, int surfaceJeu[][NB_COLONNES])
             cout << MESSAGE_ERREUR << endl;
         }
     }
-
-
 }
 
-void recherchePion(int surfaceJeu[][NB_COLONNES], int position[][NB_COLONNES]) {
+
+void recherchePion(Etats surfaceJeu[][NB_COLONNES], int position[][NB_COLONNES]) {
 
     int trouve = 0, j = 0, i = 0, y = 0;
     for (; y < 7 && !trouve; y++) {
         for (; i < 7 && !trouve; i++) {
-            if (surfaceJeu[y][i] == 1) {
-                surfaceJeu[y][i] = 2;
+            if (surfaceJeu[y][i] == Etats::ENLEVE) {
+                surfaceJeu[y][i] = Etats::PLEIN;
                 position[j][j] = y + 1;
                 position[j][j + 1] = i + 1;
                 trouve = 1;
@@ -253,6 +250,7 @@ void recherchePion(int surfaceJeu[][NB_COLONNES], int position[][NB_COLONNES]) {
     if (!trouve)
         return;
 }
+
 
 bool positionCorrect(string& saisie, int& x, unsigned int& y) {
 
