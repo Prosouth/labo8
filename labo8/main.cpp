@@ -51,13 +51,13 @@ int main()
    afficher(surfaceJeu);
    
   //saisieUtilisateur(surfaceJeu);
-   /*
+   
    cout << boolalpha << deplacementValide(surfaceJeu, "10u") << endl;
    cout << boolalpha << deplacementValide(surfaceJeu, "71d") << endl;
    cout << boolalpha << deplacementValide(surfaceJeu, "12l") << endl;
    cout << boolalpha << deplacementValide(surfaceJeu, "72r") << endl;
    cout << boolalpha << deplacementValide(surfaceJeu, "64u") << endl;
-   */
+   
    aide(surfaceJeu);
    
    return EXIT_SUCCESS;
@@ -76,11 +76,11 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
    switch (directionDeplacement) 
    { // check naïvement que le déplacement ne déborde pas de la surface de tableau
       case 'u':
-         if (ligne >= 2 && colonne >= 0 && colonne <= 6 && ligne <= 6)
+         if (ligne >= 2 && ligne <= 6 && colonne >= 0 && colonne <= 6)
             deplacementValide = true;
          break;
       case 'd':
-         if (ligne <= 4 && colonne >= 0 && colonne <= 6 && ligne >= 0)
+         if (ligne <= 4 && ligne >= 0 && colonne >= 0 && colonne <= 6)
             deplacementValide = true;
          break;
       case 'l':
@@ -91,7 +91,8 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
          if (colonne <= 4 && colonne >= 0 && ligne >= 0 && ligne <= 6)
             deplacementValide = true;
          break;
-      default: break;
+      default: 
+         break;
    }
 
    if (deplacementValide && surfaceJeu[colonne][ligne] == Etats::PLEIN) 
