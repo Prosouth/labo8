@@ -176,8 +176,6 @@ int char2int(char c) // utilisée pour parser les déplacements
 }
 
 
-
-
 string saisieUtilisateur()
 {
    string valeur;
