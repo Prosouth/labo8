@@ -27,17 +27,17 @@ const string QUESTION = "Entrez votre deplacement souhaite: ",
              MESSAGE_ERREUR = "Entree non valide";
 const char LETTRE_QUITTER = 'q';
 
-void aide(Etats surfaceJeu[][NB_LIGNES]);
-void sautRetraitPion(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur);
-void afficher(Etats surfaceJeu[][NB_LIGNES]);
+void aide(Etats surfaceJeu[][NB_COLONNES]);
+void sautRetraitPion(Etats surfaceJeu[][NB_COLONNES], string saisieUtilisateur);
+void afficher(Etats surfaceJeu[][NB_COLONNES]);
 int char2int(char c);
-bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur);
-bool finirJeu(Etats surfaceJeu[][NB_LIGNES]);
+bool deplacementValide(Etats surfaceJeu[][NB_COLONNES], string saisieUtilisateur);
+bool finirJeu(Etats surfaceJeu[][NB_COLONNES]);
 string saisieUtilisateur();
 
 int main() 
 {
-   Etats surfaceJeu[NB_COLONNES][NB_LIGNES] = 
+   Etats surfaceJeu[NB_LIGNES][NB_COLONNES] = 
    {{Etats::VIDE,Etats::VIDE,Etats::PLEIN,Etats::PLEIN,Etats::PLEIN,Etats::VIDE,Etats::VIDE},
    {Etats::VIDE,Etats::VIDE,Etats::PLEIN,Etats::PLEIN,Etats::PLEIN,Etats::VIDE,Etats::VIDE},
    {Etats::PLEIN,Etats::PLEIN,Etats::PLEIN,Etats::PLEIN,Etats::PLEIN,Etats::PLEIN,Etats::PLEIN},
@@ -90,7 +90,7 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
    }
    bool deplacementValide = false;
 
-   if(surfaceJeu[colonne][ligne] != Etats::PLEIN)
+   if(surfaceJeu[ligne][colonne] != Etats::PLEIN)
    {
       return false;
    }
@@ -136,8 +136,8 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
                  && surfaceJeu[ligne][colonne - 2] == Etats::ENLEVE);
          break;
       case'r': // right
-         return (surfaceJeu[ligne + 1][ligne] == Etats::PLEIN
-                 && surfaceJeu[colonne + 2][ligne] == Etats::ENLEVE);
+         return (surfaceJeu[ligne + 1][colonne] == Etats::PLEIN
+                 && surfaceJeu[ligne + 2][colonne] == Etats::ENLEVE);
          break;
       default:
          break;
@@ -149,9 +149,9 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
 {
    int compteur = 0;
    cout << "Deplacements possibles:";
-   for (int i = 0; i <= NB_COLONNES; i++)
+   for (int i = 0; i <= NB_LIGNES; i++)
    {
-      for (int j = 0; j <= NB_LIGNES; j++) 
+      for (int j = 0; j <= NB_COLONNES; j++) 
       {
          if (surfaceJeu[i][j] == Etats::PLEIN) 
          {
@@ -183,9 +183,9 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
 bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
 {
 
-   for (int i = 0; i < NB_COLONNES; i++) 
+   for (int i = 0; i < NB_LIGNES; i++) 
    {
-      for (int j = 0; j < NB_LIGNES; j++) 
+      for (int j = 0; j < NB_COLONNES; j++) 
       {
          if (surfaceJeu[i][j] == Etats::PLEIN) 
          {
