@@ -182,19 +182,19 @@ bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
       {
          if (surfaceJeu[i][j] == Etats::PLEIN) 
          {
-            if (surfaceJeu[i - 2][j] == Etats::ENLEVE && i >= 2 && surfaceJeu[i - 1][j] == Etats::PLEIN) 
+            if (i >= 2 && surfaceJeu[i - 2][j] == Etats::ENLEVE && surfaceJeu[i - 1][j] == Etats::PLEIN) 
             {
                return false;
             }
-            if (surfaceJeu[i + 2][j] == Etats::ENLEVE && i <= 5 && surfaceJeu[i + 1][j] == Etats::PLEIN) 
+            if (i <= 5 && surfaceJeu[i + 2][j] == Etats::ENLEVE && surfaceJeu[i + 1][j] == Etats::PLEIN) 
             {
                return false;
             }
-            if (surfaceJeu[i][j + 2] == Etats::ENLEVE && j <= 5 && surfaceJeu[i][j - 1] == Etats::PLEIN) 
+            if (j <= 5 && surfaceJeu[i][j + 2] == Etats::ENLEVE && surfaceJeu[i][j - 1] == Etats::PLEIN) 
             {
                return false;
             }
-            if (surfaceJeu[i][j - 2] == Etats::ENLEVE && j >= 2 && surfaceJeu[i][j - 1] == Etats::PLEIN) 
+            if (j >= 2 && surfaceJeu[i][j - 2] == Etats::ENLEVE && surfaceJeu[i][j - 1] == Etats::PLEIN) 
             {
                return false;
             }
