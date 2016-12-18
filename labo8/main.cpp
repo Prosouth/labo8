@@ -73,7 +73,7 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
    ligne --;
    bool deplacementValide = false;
 
-   if(surfaceJeu[colonne][ligne] == Etats::PLEIN)
+   if(surfaceJeu[colonne][ligne] != Etats::PLEIN)
    {
       return false;
    }
