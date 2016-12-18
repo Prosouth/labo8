@@ -28,7 +28,7 @@ const string QUESTION = "Entrez votre deplacement souhaite: ",
 const char LETTRE_QUITTER = 'q';
 
 void aide(Etats surfaceJeu[][NB_LIGNES]);
-string saisieUtilisateur(Etats surfaceJeu[][NB_LIGNES]);
+string saisieUtilisateur();
 void afficher(Etats surfaceJeu[][NB_LIGNES]);
 int char2int(char c);
 bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur);
@@ -49,7 +49,7 @@ int main()
    
    afficher(surfaceJeu);
    
-  //saisieUtilisateur(surfaceJeu);
+  saisieUtilisateur();
    
    cout << boolalpha << deplacementValide(surfaceJeu, "10u") << endl;
    cout << boolalpha << deplacementValide(surfaceJeu, "71d") << endl;
@@ -223,11 +223,11 @@ int char2int(char c) // utilisée pour parser les déplacements
    return c - '0';
 }
 
-string saisieUtilisateur(Etats surfaceJeu[][NB_LIGNES])
+string saisieUtilisateur()
 {
    string valeur;
    char direction;
-   bool entree_invalide = false;
+   bool entree_invalide = true;
    do {
       cout << QUESTION;
       cin >> valeur;
@@ -246,21 +246,19 @@ string saisieUtilisateur(Etats surfaceJeu[][NB_LIGNES])
             case 'r':
                return valeur;
             default:
-               cout << MESSAGE_ERREUR;
+               cout << MESSAGE_ERREUR << endl;
                cin.clear();
                cin.ignore(numeric_limits<int>::max(), '\n');
          }
-      } 
-      else 
-      {
-         cout << MESSAGE_ERREUR;
+      }
+      else {
+         cout << MESSAGE_ERREUR << end;
          cin.clear();
          cin.ignore(numeric_limits<int>::max(), '\n');
       }
-   }while (entree_invalide); // tant que l'entrée est invalide, on garde l'utilisateur captif   
+   } while (entree_invalide); // tant que l'entrée est invalide, on garde l'utilisateur captif   
 
-
-return valeur;
+   return valeur;
 }
 
 
