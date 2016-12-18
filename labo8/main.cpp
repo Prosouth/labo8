@@ -39,7 +39,12 @@ int main()
    do
    {
      saisie = saisieUtilisateur();
-     if(deplacementValide(surfaceJeu, saisie))
+     
+     if(saisie == "h")
+     {
+        aide(surfaceJeu);
+     }
+     else if(deplacementValide(surfaceJeu, saisie))
      {
         sautRetraitPion(surfaceJeu,saisie);
      }
@@ -47,10 +52,7 @@ int main()
          cout << "Deplacement non valide" << endl;
      }
      
-     if(saisie == "h")
-     {
-        aide(surfaceJeu);
-     }
+
      afficher(surfaceJeu);
      //finirJeu(surfaceJeu);
    }
