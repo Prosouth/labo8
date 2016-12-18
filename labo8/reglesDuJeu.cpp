@@ -113,6 +113,7 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
 }
 
 
+
 bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
 {
 
