@@ -124,9 +124,9 @@ bool deplacementValide(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
    }
 }
 
+
 void aide(Etats surfaceJeu[][NB_LIGNES])
 {
-   int possibilites[80];
    int compteur = 0;
    cout << "Deplacements possibles:";
    for (int i = 0; i < NB_COLONNES; i++) {
@@ -155,6 +155,36 @@ void aide(Etats surfaceJeu[][NB_LIGNES])
    }
    cout << endl << "Nombre de coups possibles : "<< compteur << endl;
 }
+
+bool finirJeu(Etats surfaceJeu[][NB_LIGNES])
+{
+   int compteur = 0;
+   cout << "Deplacements possibles:";
+   for (int i = 0; i < NB_COLONNES; i++) {
+      for (int j = 0; j < NB_LIGNES; j++) {
+         if(surfaceJeu[i - 2][j] == Etats::ENLEVE && i >= 2 && surfaceJeu[i - 1][j] == Etats::PLEIN)
+         {
+            compteur++;
+         }
+         if(surfaceJeu[i + 2][j] == Etats::ENLEVE && i <= 5 && surfaceJeu[i + 1][j] == Etats::PLEIN)
+         {
+            compteur++;
+         }
+         if(surfaceJeu[i][j + 2] == Etats::ENLEVE && j <= 5 && surfaceJeu[i][j - 1] == Etats::PLEIN)
+         {
+            compteur++;
+         }
+         if(surfaceJeu[i][j - 2] == Etats::ENLEVE && j >= 2 && surfaceJeu[i][j - 1] == Etats::PLEIN)
+         {
+            compteur ++;
+         }   
+      }
+   }
+   return !(compteur);
+}
+
+
+
 
 
 void afficher(Etats surfaceJeu[][NB_LIGNES])
@@ -208,6 +238,7 @@ string saisieUtilisateur(Etats surfaceJeu[][NB_LIGNES])
 return valeur;
 }
 
+
 string saisieDuGhetto(Etats surfaceJeu[][NB_LIGNES])
 {
    string saisie;
@@ -216,6 +247,7 @@ string saisieDuGhetto(Etats surfaceJeu[][NB_LIGNES])
    
    return saisie;
 }
+
 
 void recherchePion(Etats surfaceJeu[][NB_LIGNES], int position[][NB_COLONNES]) {
 
@@ -233,6 +265,7 @@ void recherchePion(Etats surfaceJeu[][NB_LIGNES], int position[][NB_COLONNES]) {
     if (!trouve)
         return;
 }
+
 
 void sautRetraitPion(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
 {
