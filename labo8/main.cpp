@@ -12,7 +12,6 @@
  Compilateur : g++ 6.2.1 20160830
  --------------------------- */
 #include <cstdlib>
-#include <iostream>
 #include <iomanip>
 #include <iostream>
 #include <limits>
@@ -54,6 +53,10 @@ int main()
      if(deplacementValide(surfaceJeu, saisie))
      {
         sautRetraitPion(surfaceJeu,saisie);
+     }
+     if (saisie == "h")
+     {
+        aide(surfaceJeu);
      }
        
      finirJeu(surfaceJeu);
@@ -263,7 +266,7 @@ string saisieUtilisateur()
       }
       else 
       {
-         cout << MESSAGE_ERREUR << end;
+         cout << MESSAGE_ERREUR << endl;
          cin.clear();
          cin.ignore(numeric_limits<int>::max(), '\n');
       }
