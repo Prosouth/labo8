@@ -302,7 +302,7 @@ void sautRetraitPion(Etats surfaceJeu[][NB_LIGNES], string saisieUtilisateur)
          surfaceJeu[ligne + 2][colonne] = Etats::PLEIN;
          break;
       case 'l': //Left
-         surfaceJeu[ligne][ligne] = Etats::ENLEVE;
+         surfaceJeu[ligne][colonne] = Etats::ENLEVE;
          surfaceJeu[ligne][colonne - 1] = Etats::ENLEVE;
          surfaceJeu[ligne][colonne - 2] = Etats::PLEIN;
          break;
