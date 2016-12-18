@@ -47,7 +47,7 @@ int main()
         aide(surfaceJeu);
      }
      afficher(surfaceJeu);
-     finirJeu(surfaceJeu);
+     //finirJeu(surfaceJeu);
    }
    while (saisie != "q" && !finirJeu(surfaceJeu));
    
